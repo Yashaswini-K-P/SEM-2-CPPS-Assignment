@@ -1,1 +1,1 @@
-# SEM-2-CPPS-Assignment
+# DSU Sem-2 assignment c Programming for problem Solving
