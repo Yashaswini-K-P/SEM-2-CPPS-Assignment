@@ -12,6 +12,19 @@ int main() {
     return 0;
 }
 
+output:
+Enter the number for multiplication table: 5
+5 X 1 = 5
+5 X 2 = 10
+5 X 3 = 15
+5 X 4 = 20
+5 X 5 = 25
+5 X 6 = 30
+5 X 7 = 35
+5 X 8 = 40
+5 X 9 = 45
+5 X 10 = 50
+
 
 2. Develop a C program to implement the pattern using nested loops (pyramid using 
 numbers).
@@ -31,3 +44,299 @@ int main(){
     }
     return 0;
 }
+
+Output:
+Enter the number of rows in a pyramid: 5
+     1 
+    2 2 
+   3 3 3 
+  4 4 4 4 
+ 5 5 5 5 5 
+
+3. Write a C program to Merge two arrays.
+
+#include <stdio.h>
+
+int main() {
+    int m, n;
+    printf("Enter the size of arr1: ");
+    scanf("%d", &m);
+    printf("Enter the size of arr2: ");
+    scanf("%d", &n);
+    int arr1[m+n], arr2[n];
+    printf("Enter the elements of arr1: ");
+    for(int i=0; i<m; i++){
+        scanf("%d", &arr1[i]);
+    }
+    printf("Enter the elements of arr2: ");
+    for(int i=0; i<n; i++){
+        scanf("%d", &arr2[i]);
+    }
+    for(int i=0; i<n; i++){
+        arr1[m+i]=arr2[i];
+    }
+    printf("Merged arr elements are:");
+    for(int i=0; i<m+n; i++){
+        printf("%d ", arr1[i]);
+    }
+    return 0;
+}
+
+Output:
+Enter the size of arr1: 2
+Enter the size of arr2: 5
+Enter the elements of arr1: 1 2
+Enter the elements of arr2: 4 5 6 7 8 
+Merged arr elements are:1 2 4 5 6 7 8 
+
+
+4. Explain the process of bubble sort with example and write the suitable code snippet. 
+Constraints: 
+• The input array can have up to 1000 elements. 
+• The array elements are integers in the range [-10⁶, 10⁶]. 
+• Your implementation should optimize the algorithm by stopping early if no swaps 
+occur in a pass 
+INPUT: arr = {5, 3, 8, 4, 2}   
+OUT PUT: Sorted array: {2, 3, 4, 5, 8} 
+
+
+Bubble Sort is a simple comparison-based sorting algorithm.
+It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
+Over time, the largest values "bubble up" to the end of the array — hence the name "Bubble" Sort.
+
+Steps:
+* Start from the first element.
+
+* Compare the current element with the next one.
+
+* If the current element is greater, swap them.
+
+*Repeat this for all elements in the array
+
+*By Repeating this process for the remaining elements, we will get the correct positions of the elements at last.
+
+*If no swaps are made in a cycle, the array is already sorted — you can stop early.
+
+Cycle 1:
+5 > 3 → swap → {3, 5, 8, 4, 2}
+
+5 < 8 → no swap
+
+8 > 4 → swap → {3, 5, 4, 8, 2}
+
+8 > 2 → swap → {3, 5, 4, 2, 8}
+
+Cycle 2:
+3 < 5 → no swap
+
+5 > 4 → swap → {3, 4, 5, 2, 8}
+
+5 > 2 → swap → {3, 4, 2, 5, 8}
+
+Cycle 3:
+3 < 4 → no swap
+
+4 > 2 → swap → {3, 2, 4, 5, 8}
+
+
+Cycle 4:
+3 > 2 → swap → {2, 3, 4, 5, 8}
+
+Cycle 5:
+No swaps — array is sorted.
+
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n) {
+    int temp, swapped;
+
+    for (int i = 0; i < n - 1; i++) {
+        swapped = 0;
+
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+
+        if (swapped == 0)
+            break;
+    }
+}
+
+int main() {
+    int arr[1000], n;
+
+    printf("Enter the number of elements : ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n > 1000) {
+        printf("Invalid size! Please enter a number between 1 and \n");
+        return 1;
+    }
+
+    printf("Enter %d  elements\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    bubbleSort(arr, n);
+
+    printf("Sorted array: {");
+    for (int i = 0; i < n; i++) {
+        printf("%d", arr[i]);
+        if (i < n - 1) printf(", ");
+    }
+    printf("}\n");
+
+    return 0;
+}
+
+Output:
+Enter the number of elements : 5
+Enter 5  elements
+1 2 3 5 4 
+Sorted array: {1, 2, 3, 4, 5}
+
+
+=== Code Execution Successful ===
+
+
+5. Problem Statement: Write a C program to perform a binary search on a sorted array. 
+The program should take an integer array and a target value as input, and return the 
+index of the target value if found, or -1 if the target is not present in the array.  
+INPUT: arr = {1, 3, 5, 7, 9, 11, 13, 15}     target = 7 
+OUTPUT: Target found at index: 3
+
+
+
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter the number of elements in an array: ");
+    scanf("%d", &n);
+    int arr[n], start=0, end=n-1, mid, found=0, tar;
+    printf("Enter the array elements: ");
+    for(int i=0; i<n; i++){
+        scanf("%d", &arr[i]);
+    }
+    printf("Enter the target: ");
+    scanf("%d", &tar);
+    while(start<=end){
+        mid=(start+end)/2;
+        if(arr[mid]==tar){
+            found=1;
+            break;
+        }else if(arr[mid]<tar){
+            start=mid+1;
+        } else{
+            end=mid-1;
+        }
+    }
+    if(found){
+        printf("Target found at index %d", mid);
+    }else{
+        printf("Not Found");
+    }
+    return 0;
+}
+
+
+6. Write a C program to Count vowels and consonants in a string. 
+Constraints: 
+• The input string will contain only alphabets (A-Z, a-z) and spaces. 
+• The program should correctly handle an empty string. 
+
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+    int vowels = 0, consonants = 0, i;
+
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    
+
+    for (i = 0; str[i] != '\0'; i++) {
+        char ch = str[i];
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
+            if (ch == 'a' || ch == 'e' || ch == 'i' ||
+                ch == 'o' || ch == 'u' || ch == 'A' ||
+                ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U')
+                vowels++;
+            else
+                consonants++;
+        }
+    }
+
+    printf("Vowels: %d\n", vowels);
+    printf("Consonants: %d\n", consonants);
+
+    return 0;
+}
+
+
+Output:
+Enter a string: Dayananda    Sagar University
+Vowels: 10
+Consonants: 14
+
+7. Write a C program that takes a 2D matrix as input and computes its transpose. The 
+transpose of a matrix is obtained by swapping rows and columns.                                    
+Constraints: 
+The input matrix can have a maximum size of 100 x 100. 
+The program should handle square and rectangular matrices. 
+The input matrix should be integer values.
+
+#include<stdio.h>
+int main(){
+    int m, n;
+    printf("Enter number of rows: ");
+    scanf("%d", &m);
+    printf("Enter number of columns: ");
+    scanf("%d", &n);
+    int arr[m][n], trans[n][m];
+    printf("Enter the elements in the matrix: ");
+    for(int i=0; i<m; i++){
+        for(int j=0; j<n; j++){
+            scanf("%d", &arr[i][j]);
+            trans[j][i]=arr[i][j];
+        }
+    }
+    printf("Original Matrix:\n");
+    for(int i=0; i<m; i++){
+        for(int j=0; j<n; j++){
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\nTransposed matrix:\n");
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            printf("%d ", trans[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+Output:
+Enter number of rows: 3
+Enter number of columns: 2
+Enter the elements in the matrix: 1 2 3 4 5 6
+Original Matrix:
+1 2 
+3 4 
+5 6 
+
+Transposed matrix:
+1 3 5 
+2 4 6 
+
+
